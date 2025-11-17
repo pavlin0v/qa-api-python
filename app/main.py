@@ -1,6 +1,11 @@
-def main():
-    print("Hello from qa-api-python!")
+from fastapi import FastAPI
 
+from app.router import router
 
-if __name__ == "__main__":
-    main()
+app = FastAPI(
+    openapi_url="/openapi.json",
+    docs_url="/",
+)
+
+app.include_router(router)
+    
