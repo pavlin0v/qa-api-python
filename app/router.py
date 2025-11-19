@@ -22,13 +22,10 @@ router = APIRouter()
 async def get_questions(
     session: AsyncSession = Depends(get_session)
 ) -> list[QuestionResponse]:
-    questions = await session.scalars(select(Question))
-
-    if not questions:
-        raise HTTPException(
-            status_code=404, 
-            detail="No questions found"
-        )
+    questions = await session.scalars(
+        select(Question)
+        .limit(100)
+    )
 
     return questions.all()
 
@@ -73,6 +70,7 @@ async def get_question_with_answers(
     answers = await session.scalars(
         select(Answer)
         .where(Answer.question_id == question_id)
+        .limit(100)
     )
 
     answers_list = [
