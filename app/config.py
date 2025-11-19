@@ -35,6 +35,7 @@ class Settings(BaseSettings):
         env_file=f"{PROJECT_DIR}/.env",
         case_sensitive=False,
         env_nested_delimiter="__",
+        extra="ignore",
     )
 
 

@@ -5,11 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    environment:
-      - DATABASE__HOSTNAME=${DATABASE__HOSTNAME}
-      - DATABASE__DB=${DATABASE__DB}
-      - DATABASE__USERNAME=${DATABASE__USERNAME}
-      - DATABASE__PASSWORD=${DATABASE__PASSWORD}
+    env_file:
+      - .env
     depends_on:
       - postgres_db
   postgres_db:
