@@ -28,9 +28,4 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 
-COPY init.sh .
-
-RUN chmod +x init.sh
-ENTRYPOINT ["./init.sh"]
-
-CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "6"]
+CMD ["/bin/sh", "-c", "alembic upgrade head && exec uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 6"]
